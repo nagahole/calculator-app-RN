@@ -39,7 +39,7 @@ export default function CalculatorApp() {
         res = prev + res;
       }
 
-      setDisplayTextRounded(res, 5);
+      setDisplayText(res);
       return res;
     });
 
@@ -87,7 +87,7 @@ export default function CalculatorApp() {
   }
 
   function operatorInput(operator) {
-    if (currentStoredNumber !== null && lastInputType === InputTypes.number) {
+    if (currentStoredNumber !== null && lastInputType !== InputTypes.equals) {
       setCurrentStoredNumber(prev => {
 
         let lastNumber = parseFloat(lastStoredNumber) || 0;
@@ -119,6 +119,13 @@ export default function CalculatorApp() {
       });
     }
 
+    if (lastInputType === InputTypes.equals) {
+      setCurrentStoredNumber(prev => {
+        setLastStoredNumber(prev);
+        return null;
+      });
+    }
+
     setStoredOperation(operator);
     setLastInputType(InputTypes.operator);
   }
@@ -134,10 +141,12 @@ export default function CalculatorApp() {
   function decimalButton() {
     setCurrentStoredNumber(prev => {
 
-      let newNumber = prev;
+      prev ||= "";
+
+      let newNumber = lastInputType === InputTypes.equals? "" : prev;
 
       if (!prev.includes(".")) {
-        newNumber = prev + ".";
+        newNumber += ".";
         setDisplayText(newNumber);
         return newNumber
       }
@@ -240,7 +249,7 @@ export default function CalculatorApp() {
 
         setDisplayTextRounded(numberToStore, 5);
         setLastStoredNumber(prev);
-        return numberToStore;
+        return numberToStore.toString();
       });
     }
 
