@@ -1,7 +1,7 @@
 # calculator-app-RN
 A simple calculator app built in React Native
 
-![calculator-ss-1](https://github.com/user-attachments/assets/0126b397-57f3-43ed-bd03-6eba24a42ed5)
+<img src="https://github.com/user-attachments/assets/0126b397-57f3-43ed-bd03-6eba24a42ed5" height="500">
 
 Working demonstration:
 
